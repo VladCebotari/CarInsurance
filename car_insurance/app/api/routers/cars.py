@@ -15,3 +15,4 @@ cars_router = APIRouter(prefix="/api/cars", tags=["Cars"])
 def get_car_categories(car_service: CarService = Depends(get_car_service),
                        ) -> list[str]:
     return car_service.get_categories()
+

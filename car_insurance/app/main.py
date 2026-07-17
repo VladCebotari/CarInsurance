@@ -6,6 +6,7 @@ from app.api.routers.owners import owners_router
 from app.exceptions.register_handlers import register_custom_exception_handlers
 from app.middleware.pagination import PaginationMiddleware
 from app.utils.logging import configure_logging
+from app.api.routers.health import health_router
 
 app = FastAPI(
     title="Insurance API",
@@ -14,6 +15,7 @@ app = FastAPI(
 configure_logging()
 app.add_middleware(PaginationMiddleware)
 
+app.include_router(health_router)
 app.include_router(licenses_router)
 app.include_router(owners_router)
 app.include_router(cars_router)
