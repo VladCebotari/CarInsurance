@@ -98,6 +98,20 @@ class ClaimCreateSchema(BaseModel):
             raise ValueError("amount must be greater than 0 and less than or equal to 1,000,000")
         return v
 
+
+class CarCreateSchema(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    vin: str = Field(..., max_length=16, pattern=r"^[A-Za-z0-9]+$")
+    make: Optional[str] = Field(None, max_length=150, pattern=r"^[A-Za-z0-9]+( [A-Za-z0-9]+)*$")
+    model: Optional[str] = Field(None, max_length=150, pattern=r"^[A-Za-z0-9]+( [A-Za-z0-9]+)*$")
+    yearOfManufacture: int = Field(..., alias="year_of_manufacture", ge=1900)
+    cc: int = Field(..., ge=1, le=10000)
+    power: int = Field(..., ge=1, le=500)
+    category: Optional[str] = None
+    ownerId: UUID = Field(..., alias="owner_id")
+
+
 class ClaimResponseSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True, populate_by_name=True)
 
